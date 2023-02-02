@@ -20,6 +20,7 @@ app.get('/', async (req, res) => {
 const startServer = async () => {
     try {
         connectDB(process.env.MONGODB_URL)
+        console.log('Mongo connect success')
     } catch (err) {
         console.log(err)
     }
