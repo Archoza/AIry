@@ -1,5 +1,5 @@
 server/.env
 
-
 # Project exclude paths
 /server/node_modules/
+.idea
