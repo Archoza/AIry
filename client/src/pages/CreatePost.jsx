@@ -18,7 +18,7 @@ function CreatePost() {
         if (form.prompt) {
             try {
                 setGeneratingImg(true);
-                const response = await fetch('https://airy.onrender.com/api/v1/dalle', {
+                const response = await fetch('https://airy.onrender.com/api/v1/open-journey', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -29,7 +29,7 @@ function CreatePost() {
                 });
 
                 const data = await response.json();
-                setForm({ ...form, photo: `data:image/jpeg;base64,${data.photo}` });
+                setForm({ ...form, photo: data.photo });
             } catch (err) {
             } finally {
                 setGeneratingImg(false);
@@ -38,6 +38,7 @@ function CreatePost() {
             alert('Please provide proper prompt');
         }
     };
+
     const handleSubmit = async (e) => {
         e.preventDefault()
         if (form.prompt && form.photo){
@@ -50,7 +51,6 @@ function CreatePost() {
                     },
                     body: JSON.stringify({ ...form }),
                 })
-
 
                 await response.json()
                 navigate('/')
