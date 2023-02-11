@@ -25,6 +25,7 @@ router.route('/').post(async (req, res) => {
         });
 
         const image = modelPrediction
+        console.log(image)
 
         res.status(200).json({photo: image})
 
