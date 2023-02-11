@@ -1,6 +1,6 @@
 import express from 'express';
 import * as dotenv from 'dotenv';
-import { v2 as cloudinary } from 'cloudinary';
+import {v2 as cloudinary} from 'cloudinary';
 
 import Post from '../mongodb/models/post.js';
 
@@ -17,27 +17,35 @@ cloudinary.config({
 router.route('/').get(async (req, res) => {
     try {
         const posts = await Post.find({});
-        res.status(200).json({ success: true, data: posts });
+        res.status(200).json({success: true, data: posts});
     } catch (err) {
-        res.status(500).json({ success: false, message: 'Fetching posts failed, please try again' });
+        res.status(500).json({success: false, message: 'Fetching posts failed, please try again'});
     }
 });
 
+
 router.route('/').post(async (req, res) => {
     try {
-        const { name, prompt, photo } = req.body;
-        const photoUrl = await cloudinary.uploader.upload(photo[0]);
+        const {name, prompt, photo, negativePrompt, cfgScale, steps} = req.body;
+        console.log(req.body, 'body')
+        const photoUrl = await cloudinary.uploader.upload(photo);
 
         const newPost = await Post.create({
             name,
             prompt,
+            negativePrompt,
+            cfgScale,
+            steps,
             photo: photoUrl.url,
+
         });
 
-        res.status(200).json({ success: true, data: newPost });
+        res.status(200).json({success: true, data: newPost});
+
     } catch (err) {
-        res.status(500).json({ success: false, message: 'Unable to create a post, please try again' });
+        res.status(500).json({success: false, message: 'Unable to create a post, please try again'});
     }
 });
+
 
 export default router;
