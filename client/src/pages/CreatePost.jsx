@@ -27,7 +27,7 @@ function CreatePost() {
             console.log(form)
             try {
                 setGeneratingImg(true);
-                const response = await fetch('http://localhost:8080/api/v1/stable-diffusion', {
+                const response = await fetch('https://airy.onrender.com/api/v1/stable-diffusion', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -59,7 +59,7 @@ function CreatePost() {
             console.log(form, 'form')
             setLoading(true)
             try {
-                const response = await fetch('http://localhost:8080/api/v1/post', {
+                const response = await fetch('https://airy.onrender.com/api/v1/post', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
